@@ -1,0 +1,37 @@
+DAY 1 - INTRODUCTION TO GIT AND GITHUB
+
+1. Check Git version
+   git --version
+
+2. Configure username
+   git config --global user.name "kakireddydhenuka"
+
+3. Configure email
+   git config --global user.email "dhenukareddy7@gmail.com"
+
+4. Create a project folder
+   mkdir PFS-ONE-04
+
+5. Navigate to the project folder
+   cd PFS-ONE-04
+
+6. Initialize Git repository
+   git init
+
+7. Check repository status
+   git status
+
+8. Create or add files
+   git add .
+
+9. Commit the files
+   git commit -m "Initial commit"
+
+10. Rename branch to main
+    git branch -M main
+
+11. Connect GitHub repository
+    git remote add origin https://github.com/KakireddyDhenuka/PFS-ONE-04.git
+
+12. Push files to GitHub
+    git push -u origin main
