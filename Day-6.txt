@@ -1,0 +1,106 @@
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| pfs7               |
+| sys                |
++--------------------+
+5 rows in set (0.06 sec)
+
+mysql> USE PFS7;
+Database changed
+mysql> CREATE TABLE STUDENTS
+    ->
+    -> ;
+ERROR 4028 (HY000): A table must have at least one visible column.
+mysql> CREATE TABLE STUDENTS(
+    -> SID INT,
+    -> SNAME VARCHAR(30),
+    -> SEMAIL VARCHAR(60)
+    -> );
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> CREATE USER "DHENUKA" IDENTIFIED BY "ROOT";
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> CREATE USER "DATTA" IDENTIFIED BY "BRO";
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> GRANT SELECT,INSERT,UPDATE ON STUDENTS TO DHENUKA;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> GRANT SELECT,DROP ON STUDENTS TO DATTA;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> REVOKE UPDATE ON STUDENTS FROM DHENUKA;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE BACKUPSTUDENTS AS
+    -> SELECT * FROM STUDENTS;
+Query OK, 2 rows affected (0.05 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> SHOW TABLES;
++----------------+
+| Tables_in_pfs7 |
++----------------+
+| backupstudents |
+| employees      |
+| students       |
++----------------+
+3 rows in set (0.03 sec)
+
+mysql> DROP EMPLOYEES;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'EMPLOYEES' at line 1
+mysql> DROP TABLE EMPLOYEES;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> SHOW TABLES;
++----------------+
+| Tables_in_pfs7 |
++----------------+
+| backupstudents |
+| students       |
++----------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM BACKUPSTUDENTS;
++------+-------+-----------------+
+| SID  | SNAME | SEMAIL          |
++------+-------+-----------------+
+|  101 | MALLI | MALLI@GMAIL.COM |
+|  102 | HARI  | MANI@GMAIL.COM  |
++------+-------+-----------------+
+2 rows in set (0.00 sec)
+
+mysql>
+mysql> CREATE TABLE PRODUCTS(
+    -> PID INT,
+    -> PNAME VARCHAR(30),
+    -> PRICE DECIMAL(10,2),
+    -> QTY INT,
+    -> TOTALAMOUNT DECIMAL(10,2) GENERATED ALWAYS AS(PRICE*QTY) STORED
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> INSERT INTO PRODUCTS(PID,PNAME,PRICE,QTY)
+    -> VALUES
+    -> (111,'MOBILE',16987.25,2);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> SELECT * FROM PRODUCTS;
++------+--------+----------+------+-------------+
+| PID  | PNAME  | PRICE    | QTY  | TOTALAMOUNT |
++------+--------+----------+------+-------------+
+|  111 | MOBILE | 16987.25 |    2 |    33974.50 |
++------+--------+----------+------+-------------+
+1 row in set (0.00 sec)
+
+mysql> UPDATE PRODUCTS SET PRICE=10000 WHERE PID=111;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql>
